@@ -30,7 +30,7 @@
 			<c:url value='' var='engelsURL'>
 				<c:param name='locale' value='en_us' />
 			</c:url>
-			<li><a href='${engelsURL}'>Engels</a></li>
+			<li><a href='${engelsURL}'>English</a></li>
 		</c:if>
 	</ul>
 </nav>
