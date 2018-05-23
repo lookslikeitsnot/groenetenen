@@ -4,11 +4,11 @@ import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
 
+import javax.validation.Valid;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.DataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -95,7 +95,7 @@ class FiliaalController {
 	}
 
 	@GetMapping(params = { "vanpostcode", "totpostcode" })
-	ModelAndView findByPostcodeReeks(PostcodeReeks reeks, BindingResult bindingResult) {
+	ModelAndView findByPostcodeReeks(@Valid PostcodeReeks reeks, BindingResult bindingResult) {
 		ModelAndView modelAndView = new ModelAndView(PER_POSTCODE_VIEW);
 		if (!bindingResult.hasErrors()) {
 			List<Filiaal> filialen = filiaalService.findByPostcodeReeks(reeks);
@@ -106,10 +106,5 @@ class FiliaalController {
 			}
 		}
 		return modelAndView;
-	}
-
-	@InitBinder("postcodeReeks")
-	void initBinderPostcodeReeks(DataBinder dataBinder) {
-		dataBinder.setRequiredFields("vanpostcode", "totpostcode");
 	}
 }

@@ -11,6 +11,8 @@ import org.springframework.format.FormatterRegistry;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.validation.MessageCodesResolver;
 import org.springframework.validation.Validator;
+import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
+import org.springframework.validation.beanvalidation.SpringValidatorAdapter;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.HandlerMethodReturnValueHandler;
 import org.springframework.web.servlet.HandlerExceptionResolver;
@@ -57,6 +59,13 @@ public class ControllersConfig implements WebMvcConfigurer {
 		return resolver;
 	}
 
+	@Bean
+	LocalValidatorFactoryBean validatorFactory() {
+		LocalValidatorFactoryBean factory = new LocalValidatorFactoryBean();
+		factory.setValidationMessageSource(messageSource());
+		return factory;
+	}
+
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler("/images/**").addResourceLocations("/images/");
@@ -65,19 +74,24 @@ public class ControllersConfig implements WebMvcConfigurer {
 	}
 
 	@Override
-	public void configurePathMatch(PathMatchConfigurer configurer) {}
+	public void configurePathMatch(PathMatchConfigurer configurer) {
+	}
 
 	@Override
-	public void configureContentNegotiation(ContentNegotiationConfigurer configurer) {}
+	public void configureContentNegotiation(ContentNegotiationConfigurer configurer) {
+	}
 
 	@Override
-	public void configureAsyncSupport(AsyncSupportConfigurer configurer) {}
+	public void configureAsyncSupport(AsyncSupportConfigurer configurer) {
+	}
 
 	@Override
-	public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {}
+	public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
+	}
 
 	@Override
-	public void addFormatters(FormatterRegistry registry) {}
+	public void addFormatters(FormatterRegistry registry) {
+	}
 
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
@@ -85,7 +99,8 @@ public class ControllersConfig implements WebMvcConfigurer {
 	}
 
 	@Override
-	public void addCorsMappings(CorsRegistry registry) {}
+	public void addCorsMappings(CorsRegistry registry) {
+	}
 
 	@Override
 	public void addViewControllers(ViewControllerRegistry registry) {
@@ -93,29 +108,36 @@ public class ControllersConfig implements WebMvcConfigurer {
 	}
 
 	@Override
-	public void configureViewResolvers(ViewResolverRegistry registry) {}
+	public void configureViewResolvers(ViewResolverRegistry registry) {
+	}
 
 	@Override
-	public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {}
+	public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
+	}
 
 	@Override
-	public void addReturnValueHandlers(List<HandlerMethodReturnValueHandler> returnValueHandlers) {}
+	public void addReturnValueHandlers(List<HandlerMethodReturnValueHandler> returnValueHandlers) {
+	}
 
 	@Override
-	public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {}
+	public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+	}
 
 	@Override
-	public void extendMessageConverters(List<HttpMessageConverter<?>> converters) {}
+	public void extendMessageConverters(List<HttpMessageConverter<?>> converters) {
+	}
 
 	@Override
-	public void configureHandlerExceptionResolvers(List<HandlerExceptionResolver> exceptionResolvers) {}
+	public void configureHandlerExceptionResolvers(List<HandlerExceptionResolver> exceptionResolvers) {
+	}
 
 	@Override
-	public void extendHandlerExceptionResolvers(List<HandlerExceptionResolver> exceptionResolvers) {}
+	public void extendHandlerExceptionResolvers(List<HandlerExceptionResolver> exceptionResolvers) {
+	}
 
 	@Override
 	public Validator getValidator() {
-		return null;
+		return new SpringValidatorAdapter(validatorFactory().getValidator());
 	}
 
 	@Override

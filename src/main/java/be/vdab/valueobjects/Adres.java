@@ -2,10 +2,13 @@ package be.vdab.valueobjects;
 
 import java.io.Serializable;
 
+import javax.validation.Valid;
+
 public class Adres implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private String straat;
 	private String huisNr;
+	@Valid
 	private Integer postcode;
 	private String gemeente;
 
@@ -47,5 +50,5 @@ public class Adres implements Serializable {
 	public void setGemeente(String gemeente) {
 		this.gemeente = gemeente;
 	}
-	
+
 }
