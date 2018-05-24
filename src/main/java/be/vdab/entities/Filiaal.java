@@ -11,6 +11,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.SafeHtml;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.NumberFormat;
 import org.springframework.format.annotation.NumberFormat.Style;
@@ -21,6 +22,7 @@ public class Filiaal implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private long id;
 	private boolean hoofdFiliaal;
+	@SafeHtml
 	@NotBlank
 	@Length(min = 1, max = 50)
 	private String naam;

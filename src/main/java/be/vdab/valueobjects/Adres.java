@@ -6,20 +6,24 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.SafeHtml;
 
 import be.vdab.constraints.Postcode;
 
 public class Adres implements Serializable {
 	private static final long serialVersionUID = 1L;
+	@SafeHtml
 	@NotBlank
 	@Length(min = 1, max = 50)
 	private String straat;
+	@SafeHtml
 	@NotBlank
 	@Length(min = 1, max = 7)
 	private String huisNr;
 	@NotNull
 	@Postcode
 	private Integer postcode;
+	@SafeHtml
 	@NotBlank
 	@Length(min = 1, max = 50)
 	private String gemeente;
