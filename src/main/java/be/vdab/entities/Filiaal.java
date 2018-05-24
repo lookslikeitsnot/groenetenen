@@ -5,7 +5,12 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
+import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.NumberFormat;
 import org.springframework.format.annotation.NumberFormat.Style;
@@ -15,13 +20,22 @@ import be.vdab.valueobjects.Adres;
 public class Filiaal implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private long id;
-	private String naam;
 	private boolean hoofdFiliaal;
-	@NumberFormat(style = Style.NUMBER)
-	private BigDecimal waardeGebouw;
-	@DateTimeFormat(style = "L-")
+	@NotBlank
+	@Length(min = 1, max = 50)
+	private String naam;
+	@Valid
+	private Adres adres;
+	@DateTimeFormat(style = "S-")
+	@NotNull
 	private LocalDate inGebruikName;
-	@Valid private Adres adres;
+	@NumberFormat(style = Style.NUMBER)
+	@NotNull
+	@Min(0)
+	@Digits(integer = 10, fraction = 2)
+	private BigDecimal waardeGebouw;
+	
+	public Filiaal() {}
 
 	public Filiaal(String naam, boolean hoofdFiliaal, BigDecimal waardeGebouw, LocalDate inGebruikName, Adres adres) {
 		this.naam = naam;
@@ -84,5 +98,5 @@ public class Filiaal implements Serializable {
 	public void setAdres(Adres adres) {
 		this.adres = adres;
 	}
-	
+
 }
