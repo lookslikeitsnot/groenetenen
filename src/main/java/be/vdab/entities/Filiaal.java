@@ -3,7 +3,16 @@ package be.vdab.entities;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.Collections;
+import java.util.Set;
 
+import javax.persistence.Embedded;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.validation.Valid;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.Min;
@@ -18,8 +27,12 @@ import org.springframework.format.annotation.NumberFormat.Style;
 
 import be.vdab.valueobjects.Adres;
 
+@Entity
+@Table(name = "filialen")
 public class Filiaal implements Serializable {
 	private static final long serialVersionUID = 1L;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	private boolean hoofdFiliaal;
 	@SafeHtml
@@ -27,6 +40,7 @@ public class Filiaal implements Serializable {
 	@Length(min = 1, max = 50)
 	private String naam;
 	@Valid
+	@Embedded
 	private Adres adres;
 	@DateTimeFormat(style = "S-")
 	@NotNull
@@ -36,8 +50,15 @@ public class Filiaal implements Serializable {
 	@Min(0)
 	@Digits(integer = 10, fraction = 2)
 	private BigDecimal waardeGebouw;
-	
-	public Filiaal() {}
+	@OneToMany(mappedBy = "filiaal")
+	private Set<Werknemer> werknemers;
+
+	public Set<Werknemer> getWerknemers() {
+		return Collections.unmodifiableSet(werknemers);
+	}
+
+	public Filiaal() {
+	}
 
 	public Filiaal(String naam, boolean hoofdFiliaal, BigDecimal waardeGebouw, LocalDate inGebruikName, Adres adres) {
 		this.naam = naam;
