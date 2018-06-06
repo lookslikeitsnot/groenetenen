@@ -11,6 +11,7 @@ import be.vdab.repositories.FiliaalRepository;
 import be.vdab.valueobjects.PostcodeReeks;
 
 @Service
+@ReadOnlyTransactionalService
 class DefaultFiliaalService implements FiliaalService {
 	private final FiliaalRepository filiaalRepository;
 
@@ -19,6 +20,7 @@ class DefaultFiliaalService implements FiliaalService {
 	}
 
 	@Override
+	@ModifyingTransactionalServiceMethod
 	public void create(Filiaal filiaal) {
 		filiaalRepository.create(filiaal);
 	}
@@ -29,11 +31,13 @@ class DefaultFiliaalService implements FiliaalService {
 	}
 
 	@Override
+	@ModifyingTransactionalServiceMethod
 	public void update(Filiaal filiaal) {
 		filiaalRepository.update(filiaal);
 	}
 
 	@Override
+	@ModifyingTransactionalServiceMethod
 	public void delete(long id) {
 		if (filiaalRepository.findAantalWerknemers(id) != 0) {
 			throw new FiliaalHeeftNogWerknemersException();
