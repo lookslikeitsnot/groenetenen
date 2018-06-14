@@ -11,7 +11,7 @@
 	<v:menu />
 	<h1>Aanvraag offerte</h1>
 	<h2>Stap 2</h2>
-	<form:form commandName='offerte'>
+	<form:form modelAttribute='offerte'>
 		<form:label path='oppervlakte'>Oppervlakte:
 <form:errors path='oppervlakte' />
 		</form:label>
