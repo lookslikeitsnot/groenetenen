@@ -133,4 +133,7 @@ public class Filiaal implements Serializable {
 		this.adres = adres;
 	}
 
+	public void afschrijven() {
+		this.waardeGebouw = BigDecimal.ZERO;
+	}
 }

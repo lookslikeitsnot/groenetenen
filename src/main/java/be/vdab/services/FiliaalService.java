@@ -20,4 +20,10 @@ public interface FiliaalService {
 	long findAantalFilialen();
 
 	List<Filiaal> findByPostcodeReeks(PostcodeReeks reeks);
+
+	List<Filiaal> findNietAfgeschreven();
+
+	void afschrijven(Filiaal filiaal);
+	
+	void afschrijven(List<Filiaal> filialen);
 }
