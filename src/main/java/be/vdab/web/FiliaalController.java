@@ -145,8 +145,6 @@ class FiliaalController {
 		} catch (ObjectOptimisticLockingFailureException ex) {
 			return REDIRECT_URL_NA_LOCKING_EXCEPTION;
 		}
-<<<<<<< HEAD
-=======
 	}
 
 	@GetMapping("afschrijven")
@@ -160,8 +158,7 @@ class FiliaalController {
 		if (bindingResult.hasErrors()) { // als de gebruiker geen filiaal selecteerde
 			return new ModelAndView(AFSCHRIJVEN_VIEW, "filialen", filiaalService.findNietAfgeschreven());
 		}
-		filiaalService.afschrijven(afschrijvenForm.getFiliaal());
+		filiaalService.afschrijven(afschrijvenForm.getFilialen());
 		return new ModelAndView(REDIRECT_NA_AFSCHRIJVEN);
->>>>>>> branch 'master' of https://github.com/lookslikeitsnot/groenetenen.git
 	}
 }

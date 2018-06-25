@@ -13,7 +13,6 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import be.vdab.entities.Filiaal;
 import be.vdab.valueobjects.Adres;
 
-@EnableJpaRepositories
 @Configuration
 @EnableJpaRepositories
 public class RepositoriesConfig {

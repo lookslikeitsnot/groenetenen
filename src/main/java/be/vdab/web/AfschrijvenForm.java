@@ -1,18 +1,20 @@
 package be.vdab.web;
 
+import java.util.List;
+
 import javax.validation.constraints.NotNull;
 
 import be.vdab.entities.Filiaal;
 
 class AfschrijvenForm {
 	@NotNull
-	private Filiaal filiaal;
+	private List<Filiaal> filialen;
 
-	public Filiaal getFiliaal() {
-		return filiaal;
+	public List<Filiaal> getFilialen() {
+		return filialen;
 	}
 
-	public void setFiliaal(Filiaal filiaal) {
-		this.filiaal = filiaal;
+	public void setFilialen(List<Filiaal> filialen) {
+		this.filialen = filialen;
 	}
 }

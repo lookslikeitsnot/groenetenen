@@ -10,11 +10,11 @@
 	<v:menu />
 	<h1>Filiaal afschrijven</h1>
 	<form:form modelAttribute='afschrijvenForm'>
-		<form:label path='filiaal'>Filiaal:<form:errors
-				path='filiaal' />
+		<form:label path='filialen'>Filialen:<form:errors
+				path='filialen' />
 		</form:label>
-		<form:radiobuttons items='${filialen}' itemLabel='naam' itemValue='id'
-path='filiaal' element='div'/>
+		<form:checkboxes items='${filialen}' itemLabel='naam' itemValue='id'
+path='filialen' element='div'/>
 		<input type='submit' value='Afschrijven' />
 	</form:form>
 </body>
