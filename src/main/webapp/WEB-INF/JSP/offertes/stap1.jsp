@@ -12,7 +12,7 @@
 	<h1>Aanvraag offerte</h1>
 	<h2>Stap 1</h2>
 	<c:url value='/offertes' var='url' />
-	<form:form action='${url}' commandName='offerte'>
+	<form:form action='${url}' modelAttribute='offerte'>
 		<form:label path='voornaam'>Voornaam:<form:errors
 				path='voornaam' />
 		</form:label>

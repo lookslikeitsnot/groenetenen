@@ -16,7 +16,6 @@ import be.vdab.datasource.TestDataSourceConfig;
 import be.vdab.entities.Filiaal;
 import be.vdab.valueobjects.Adres;
 
-//enkele imports ...
 @RunWith(SpringRunner.class)
 @ContextConfiguration(classes = { TestDataSourceConfig.class, RepositoriesConfig.class, })
 @Transactional // omringt elke test met een transactie, na de test rollback

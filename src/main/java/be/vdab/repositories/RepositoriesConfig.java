@@ -15,6 +15,7 @@ import be.vdab.valueobjects.Adres;
 
 @EnableJpaRepositories
 @Configuration
+@EnableJpaRepositories
 public class RepositoriesConfig {
 	@Bean
 	LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource) {

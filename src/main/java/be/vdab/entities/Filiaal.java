@@ -54,7 +54,16 @@ public class Filiaal implements Serializable {
 	@OneToMany(mappedBy = "filiaal")
 	private Set<Werknemer> werknemers;
 	@Version
-	private long versie;
+
+	private long versie; // je maakt ook een getter en setter
+
+	public long getVersie() {
+		return versie;
+	}
+
+	public void setVersie(long versie) {
+		this.versie = versie;
+	}
 
 	public Set<Werknemer> getWerknemers() {
 		return Collections.unmodifiableSet(werknemers);
@@ -125,4 +134,7 @@ public class Filiaal implements Serializable {
 		this.adres = adres;
 	}
 
+	public void afschrijven() {
+		this.waardeGebouw = BigDecimal.ZERO;
+	}
 }

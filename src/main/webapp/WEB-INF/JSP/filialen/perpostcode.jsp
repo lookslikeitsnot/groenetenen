@@ -12,7 +12,7 @@
 	<v:menu />
 	<h1>Filialen per postcode</h1>
 	<c:url value='/filialen' var='url' />
-	<form:form action='${url}' commandName='postcodeReeks' method='get'>
+	<form:form action='${url}' modelAttribute='postcodeReeks' method='get'>
 		<form:label path='vanpostcode'>Van:</form:label>
 		<form:errors path='vanpostcode' />
 		<form:input path='vanpostcode' autofocus='autofocus' type='number'
