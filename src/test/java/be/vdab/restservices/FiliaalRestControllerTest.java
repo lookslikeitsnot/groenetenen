@@ -28,6 +28,7 @@ import org.springframework.web.context.WebApplicationContext;
 import be.vdab.datasource.TestDataSourceConfig;
 import be.vdab.entities.Filiaal;
 import be.vdab.repositories.TestRepositoriesConfig;
+import be.vdab.restclients.RestClientsConfig;
 import be.vdab.services.FiliaalService;
 import be.vdab.services.ServicesConfig;
 import be.vdab.valueobjects.Adres;
@@ -35,7 +36,7 @@ import be.vdab.web.ControllersConfig;
 
 @RunWith(SpringRunner.class)
 @ContextConfiguration(classes = { TestDataSourceConfig.class, TestRepositoriesConfig.class, ServicesConfig.class,
-		ControllersConfig.class, RestControllersConfig.class })
+		ControllersConfig.class, RestControllersConfig.class, RestClientsConfig.class })
 @WebAppConfiguration
 @Transactional
 public class FiliaalRestControllerTest {
