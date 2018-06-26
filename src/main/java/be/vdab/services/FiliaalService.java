@@ -26,4 +26,6 @@ public interface FiliaalService {
 	void afschrijven(Filiaal filiaal);
 	
 	void afschrijven(List<Filiaal> filialen);
+	
+	void aantalFilialenMail();
 }

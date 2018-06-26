@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.domain.Sort;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import be.vdab.entities.Filiaal;
@@ -85,5 +86,11 @@ class DefaultFiliaalService implements FiliaalService {
 	@ModifyingTransactionalServiceMethod
 	public void afschrijven(List<Filiaal> filialen) {
 		filialen.forEach(filiaal -> filiaal.afschrijven());
+	}
+
+	@Override
+	@Scheduled(/* cron = "0 0 1 * * *" */ fixedRate = 60000) // test = om de minuut
+	public void aantalFilialenMail() {
+		mailSender.aantalFilialenMail(filiaalRepository.count());
 	}
 }
