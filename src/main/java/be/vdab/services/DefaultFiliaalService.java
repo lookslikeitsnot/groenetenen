@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import be.vdab.entities.Filiaal;
 import be.vdab.exceptions.FiliaalHeeftNogWerknemersException;
+import be.vdab.mail.MailSender;
 import be.vdab.repositories.FiliaalRepository;
 import be.vdab.valueobjects.PostcodeReeks;
 
@@ -16,15 +17,18 @@ import be.vdab.valueobjects.PostcodeReeks;
 @ReadOnlyTransactionalService
 class DefaultFiliaalService implements FiliaalService {
 	private final FiliaalRepository filiaalRepository;
+	private final MailSender mailSender;
 
-	DefaultFiliaalService(FiliaalRepository filiaalRepository) {
+	DefaultFiliaalService(FiliaalRepository filiaalRepository, MailSender mailSender) {
 		this.filiaalRepository = filiaalRepository;
+		this.mailSender = mailSender;
 	}
 
 	@Override
 	@ModifyingTransactionalServiceMethod
-	public void create(Filiaal filiaal) {
+	public void create(Filiaal filiaal, String urlAlleFilialen) {
 		filiaalRepository.save(filiaal);
+		mailSender.nieuwFiliaalMail(filiaal, urlAlleFilialen + '/' + filiaal.getId());
 	}
 
 	@Override
