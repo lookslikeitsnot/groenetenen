@@ -5,7 +5,10 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.domain.Sort;
+import org.springframework.jms.core.JmsMessagingTemplate;
+import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import be.vdab.entities.Filiaal;
@@ -19,10 +22,13 @@ import be.vdab.valueobjects.PostcodeReeks;
 class DefaultFiliaalService implements FiliaalService {
 	private final FiliaalRepository filiaalRepository;
 	private final MailSender mailSender;
+	private final JmsMessagingTemplate jmsMessagingTemplate;
 
-	DefaultFiliaalService(FiliaalRepository filiaalRepository, MailSender mailSender) {
-		this.filiaalRepository = filiaalRepository;
+	DefaultFiliaalService(FiliaalRepository filiaalDAO, MailSender mailSender,
+			JmsMessagingTemplate jmsMessagingTemplate) {
+		this.filiaalRepository = filiaalDAO;
 		this.mailSender = mailSender;
+		this.jmsMessagingTemplate = jmsMessagingTemplate;
 	}
 
 	@Override
@@ -30,6 +36,8 @@ class DefaultFiliaalService implements FiliaalService {
 	public void create(Filiaal filiaal, String urlAlleFilialen) {
 		filiaalRepository.save(filiaal);
 		mailSender.nieuwFiliaalMail(filiaal, urlAlleFilialen + '/' + filiaal.getId());
+		MessageBuilder<String> builder = MessageBuilder.withPayload(urlAlleFilialen + '/' + filiaal.getId());
+		jmsMessagingTemplate.send(builder.build());
 	}
 
 	@Override
@@ -66,6 +74,7 @@ class DefaultFiliaalService implements FiliaalService {
 	}
 
 	@Override
+	@PreAuthorize("hasAuthority('manager')")
 	public List<Filiaal> findByPostcodeReeks(PostcodeReeks reeks) {
 		return filiaalRepository.findByAdresPostcodeBetweenOrderByNaam(reeks.getVanpostcode(), reeks.getTotpostcode());
 	}
@@ -89,7 +98,7 @@ class DefaultFiliaalService implements FiliaalService {
 	}
 
 	@Override
-	@Scheduled(/* cron = "0 0 1 * * *" */ fixedRate = 60000) // test = om de minuut
+	@Scheduled(cron = "0 0 1 * * *" ) // test = om het uur : /* fixedRate = 3600000*/
 	public void aantalFilialenMail() {
 		mailSender.aantalFilialenMail(filiaalRepository.count());
 	}
