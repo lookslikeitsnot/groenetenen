@@ -1,6 +1,7 @@
 package be.vdab.jms;
 
 import org.apache.activemq.ActiveMQConnectionFactory;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -11,10 +12,10 @@ import org.springframework.jms.annotation.EnableJms;
 import org.springframework.jms.config.DefaultJmsListenerContainerFactory;
 import org.springframework.jms.core.JmsMessagingTemplate;
 
+@EnableJms
 @Configuration
 @ComponentScan
 @PropertySource("classpath:/jms.properties")
-@EnableJms
 public class JmsConfig {
 	final static String QUEUE_NAME = "nieuwFiliaalQueue";
 
